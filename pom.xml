@@ -46,8 +46,10 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
-
+    <dependency>
+    	<groupId>org.springframework.hateoas</groupId>
+    	<artifactId>spring-hateoas</artifactId>
+	</dependency>
   </dependencies>
 
   <build>

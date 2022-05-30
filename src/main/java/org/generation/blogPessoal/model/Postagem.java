@@ -12,9 +12,14 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
 @Entity
 @Table(name="tb_postagem")
-public class Postagem {
+public class Postagem extends RepresentationModel<Postagem>{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -28,7 +33,7 @@ public class Postagem {
 	private String texto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date date = new java.sql.Date(System.currentTimeMillis());
+	private Date data = new java.sql.Date(System.currentTimeMillis());
 	
 	public Long getId() {
 		return id;
@@ -48,11 +53,13 @@ public class Postagem {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-	public Date getDate() {
-		return date;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	public Date getData() {
+		return data;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setData(Date data) {
+		this.data = data;
 	}
+
 	
 }
