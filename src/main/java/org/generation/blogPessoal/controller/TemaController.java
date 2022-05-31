@@ -5,6 +5,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.generation.blogPessoal.model.Tema;
 import org.generation.blogPessoal.repository.TemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,12 +78,12 @@ public class TemaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Tema> post(@RequestBody Tema tema){
+	public ResponseEntity<Tema> post(@Valid @RequestBody Tema tema){
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Tema> put (@RequestBody Tema tema, @PathVariable Long id){
+	public ResponseEntity<Tema> put ( @Valid @RequestBody Tema tema, @PathVariable Long id){
 		return repository.findById(id).map(temaAntigo->{
 			temaAntigo.setDescricao(tema.getDescricao());
 			return ResponseEntity.ok().body(repository.save(temaAntigo));
