@@ -46,7 +46,7 @@ public class PostagemController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> getById(@PathVariable Long id){
 		return postagemRepository.findById(id).map(post->{
-			post.add(linkTo(methodOn(PostagemController.class).getAll()).withRel("parent"));//adiciona link do getAll()
+			post.add(linkTo(methodOn(PostagemController.class).getAll()).withRel("all").withType("GET"));//adiciona link do getAll()
 			return ResponseEntity.ok(post);
 		}).orElse(ResponseEntity.notFound().build());
 	}
@@ -59,7 +59,7 @@ public class PostagemController {
 		}else {
 			for(Postagem post:postagens) {
 				Long id = post.getId();
-				post.add(linkTo(methodOn(PostagemController.class).getAll()).withRel("parent"));
+				post.add(linkTo(methodOn(PostagemController.class).getAll()).withRel("all"));
 				post.add(linkTo(methodOn(PostagemController.class).getById(id)).withSelfRel());
 			}
 			return ResponseEntity.ok(postagens);
