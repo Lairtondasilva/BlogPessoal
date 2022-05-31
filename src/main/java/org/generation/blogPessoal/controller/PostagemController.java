@@ -74,7 +74,7 @@ public class PostagemController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Postagem> put (@RequestBody Postagem postagem, @PathVariable Long id ){
 		return postagemRepository.findById(id).map(post->{
-		post.setTexto(postagem.getTitulo());
+		post.setTitulo(postagem.getTitulo());
 		post.setTexto(postagem.getTexto());
 		post.setData(postagem.getData());
 		return ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(post));
