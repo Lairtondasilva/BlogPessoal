@@ -27,7 +27,7 @@ public class Tema extends RepresentationModel<Tema>{
 	private String descricao;
 	
 	@OneToMany(mappedBy="tema", cascade= CascadeType.ALL)
-	@JsonIgnoreProperties("tema")
+	@JsonIgnoreProperties({"tema","id"})
 	private List<Postagem> postagens;
 
 	public long getId() {
