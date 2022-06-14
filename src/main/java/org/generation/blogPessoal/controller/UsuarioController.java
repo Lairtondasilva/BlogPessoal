@@ -46,15 +46,29 @@ public class UsuarioController {
 	}
 	
 	//implementar depois
-	@PutMapping
-	public ResponseEntity<Usuario> atualizar (@RequestBody Usuario user){
-	 return null;
+	@PutMapping("/{id}")
+	public ResponseEntity<Usuario> atualizar (@RequestBody @Valid Usuario user, @PathVariable Long id){
+	 return repository.findById(id).map(usuario->{
+		usuario.setNome(user.getNome());
+		usuario.setUsuario(user.getUsuario());
+		usuario.setFoto(user.getFoto());
+		usuario.setSenha(user.getSenha());
+		usuario.setTipo(user.getTipo());
+		return ResponseEntity.ok(repository.save(usuario));
+	 }).orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<Usuario>> pegarTodos(){
 		return ResponseEntity.ok(repository.findAll());
 	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Usuario> getById(@PathVariable Long id){
+		return repository.findById(id).map(user->ResponseEntity.ok(user))
+			.orElse(ResponseEntity.notFound().build());
+	}
+
 	
 	@DeleteMapping("/{id}")
 	public void deletar(@PathVariable Long id) {
