@@ -34,7 +34,7 @@ public class TemaController {
 	public ResponseEntity<List<Tema>> getAll(){
 		List<Tema> temas = repository.findAll();
 		if(temas.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return ResponseEntity.ok(temas);
 		}
 		else {
 			for(Tema tema:temas) {

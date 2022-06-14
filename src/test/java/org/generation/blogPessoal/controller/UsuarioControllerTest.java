@@ -45,8 +45,7 @@ public class UsuarioControllerTest {
   public void deveCadastrarUmUsuario(){
     HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(
       new Usuario(0l,"Lairton da Silva", "Lairton@gmail.com","123456789",
-      "https://avatars.githubusercontent.com/u/93054001?s=400&u=7ca8a8a7b8c63ef7693d34183b4fcae3f4023afc&v=4",
-      "User"
+      "https://avatars.githubusercontent.com/u/93054001?s=400&u=7ca8a8a7b8c63ef7693d34183b4fcae3f4023afc&v=4"
       )
       );
     ResponseEntity<Usuario> resposta = template.exchange(
@@ -58,7 +57,7 @@ public class UsuarioControllerTest {
       assertEquals(HttpStatus.CREATED, resposta.getStatusCode());
       assertEquals(requisicao.getBody().getNome(), resposta.getBody().getNome());
       assertEquals(requisicao.getBody().getFoto(), resposta.getBody().getFoto());
-      assertEquals(requisicao.getBody().getUsuario(), resposta.getBody().getUsuario());
+      assertEquals(requisicao.getBody().getLogin(), resposta.getBody().getLogin());
       assertEquals(requisicao.getBody().getFoto(), resposta.getBody().getFoto());
   }
 
@@ -67,7 +66,7 @@ public class UsuarioControllerTest {
   @DisplayName("Retorna um usuario pelo id")
   public void deveRetornarPeloId (){
     Usuario usuario = usuarioService.cadastrarUsuario(new Usuario(0L,"Lailson", "kazumi@gmail.com",
-"kazumi123", "fdashfadflkadsjfldasj","User")
+"kazumi123", "fdashfadflkadsjfldasj")
     );
     
     ResponseEntity<Usuario> response = template.withBasicAuth("root", "root").exchange(
@@ -79,7 +78,7 @@ public class UsuarioControllerTest {
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertEquals(usuario.getNome(), response.getBody().getNome());
     assertEquals(usuario.getFoto(), response.getBody().getFoto());
-    assertEquals(usuario.getUsuario(), response.getBody().getUsuario());
+    assertEquals(usuario.getLogin(), response.getBody().getLogin());
   }
 
   @Order(3)
@@ -87,10 +86,10 @@ public class UsuarioControllerTest {
   @DisplayName("Retorna todos os usuarios")
   public void getAll(){
     usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Sabrina Sanches", "sabrina_sanches@email.com.br", "sabrina123", "https://i.imgur.com/5M2p5Wb.jpg","User"));
+			"Sabrina Sanches", "sabrina_sanches@email.com.br", "sabrina123", "https://i.imgur.com/5M2p5Wb.jpg"));
 		
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Ricardo Marques", "ricardo_marques@email.com.br", "ricardo123", "https://i.imgur.com/Sk5SjWE.jpg","Admin"));
+			"Ricardo Marques", "ricardo_marques@email.com.br", "ricardo123", "https://i.imgur.com/Sk5SjWE.jpg"));
  
       ResponseEntity<String> response = template.withBasicAuth("root", "root").exchange(
         "/usuarios", 
@@ -110,16 +109,14 @@ public class UsuarioControllerTest {
       "Alison",
       "alison@gmail.com",
       "alison123",
-      "fkdsajfljdaslfjasdlfsd",
-      "User"
+      "fkdsajfljdaslfjasdlfsd"
       ));
 
     HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(
       "Alison Vieira",
       "alison@gmail.com",
       "alison123",
-      "fkdsajfljdaslfjasdlfsd",
-      "User"
+      "fkdsajfljdaslfjasdlfsd"
      )
     );
     ResponseEntity<Usuario> response = template.withBasicAuth("root",

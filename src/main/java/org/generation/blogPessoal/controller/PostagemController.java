@@ -33,7 +33,7 @@ public class PostagemController {
 		List<Postagem> postagens = postagemRepository.findAll();
 		
 		if(postagens.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return ResponseEntity.ok(postagens);
 		}else {
 			for(Postagem post:postagens) {
 				Long id = post.getId();
