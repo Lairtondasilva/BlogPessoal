@@ -46,14 +46,8 @@ public class UsuarioController {
 	
 	//implementar depois
 	@PutMapping("/{id}")
-	public ResponseEntity<Usuario> atualizar (@RequestBody @Valid Usuario user, @PathVariable Long id){
-	 return repository.findById(id).map(usuario->{
-		usuario.setNome(user.getNome());
-		usuario.setLogin(user.getLogin());
-		usuario.setFoto(user.getFoto());
-		usuario.setSenha(user.getSenha());
-		return ResponseEntity.ok(repository.save(usuario));
-	 }).orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<Optional<Usuario>> atualizar (@RequestBody @Valid Usuario user, @PathVariable Long id){
+	 return ResponseEntity.ok(usuarioService.atualizarUsuario(user, id));
 	}
 	
 	@GetMapping

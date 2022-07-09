@@ -46,7 +46,7 @@ private String login;
 	private String foto;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("login")
+	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagens;
 	
 	public List<Postagem> getPostagens() {
